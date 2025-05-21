@@ -1,0 +1,53 @@
+#! /usr/bin/env zsh
+
+echo "mk"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+
+case $1 in
+		workbook)
+				mk-workbook
+				;;
+		daily-show)
+				mk-daily-show
+				;;
+		dailyshow)
+				mk-daily-show
+				;;
+		daily)
+				mk-daily-show
+				;;
+		resource)
+				mk-resource $2
+				;;
+		obs)
+				mk-obs
+				;;
+		text)
+				mk-text
+				;;
+		doc)
+				mk-doc $2
+				;;
+		start)
+				mk-start
+				;;
+		gitup)
+				mk-gitup
+				;;
+		*)	echo "didn't recognize $1";;
+esac
+
+
+case $2 in
+		gatsby)
+				cd ~/Development
+				mk-gatsby "mk-gatsby-$(date '+%Y%m%d')" $3
+				;;
+
+		*)	echo "didn't recognize $2";;
+esac
+
+
+echo "all done"

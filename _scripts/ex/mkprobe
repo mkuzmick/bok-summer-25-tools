@@ -1,0 +1,28 @@
+#!/bin/bash
+# Check if an argument was provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <file>"
+  exit 1
+fi
+
+# Input file from the first argument
+INPUT_FILE="$1"
+
+# Ensure ffprobe is installed and available
+if ! command -v ffprobe &> /dev/null; then
+  echo "ffprobe could not be found. Please install FFmpeg with ffprobe."
+  exit 1
+fi
+
+# Build the output file path by replacing the extension with .json
+OUTPUT_FILE="${INPUT_FILE%.*}.json"
+
+# Run ffprobe and save the results as a JSON file
+ffprobe -v quiet -print_format json -show_format -show_streams "$INPUT_FILE" > "$OUTPUT_FILE"
+
+# Check if ffprobe was successful
+if [ $? -eq 0 ]; then
+  echo "Output saved to $OUTPUT_FILE"
+else
+  echo "An error occurred during ffprobe execution."
+fi

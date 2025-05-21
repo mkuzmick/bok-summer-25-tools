@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Retrieve the current user's username
+username=$(whoami)
+
+# Get the current date in YYYYMMDD format
+current_date=$(date '+%Y%m%d')
+
+# Define the project name
+project_name="${username}-workbook-${current_date}"
+
+# Create a Next.js app with pnpm and preset configurations
+pnpm create next-app@latest "$project_name" \
+  --typescript \
+  --eslint \
+  --tailwind \
+  --app \
+  --src-dir \
+  --import-alias "@/*" \
+  --yes
+
+# Open the project in Visual Studio Code
+code "$project_name"
+
+# Open a new Terminal tab in the project directory
+osascript <<EOF
+tell application "Terminal"
+    activate
+    tell application "System Events" to keystroke "t" using command down
+    delay 0.5
+    do script "cd $(pwd)/$project_name" in front window
+end tell
+EOF

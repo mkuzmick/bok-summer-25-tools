@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mkdir $1
+mkdir $1/5Da
+mkdir $1/5Db
+mkdir $1/C300a
+mkdir $1/C300b
+mkdir $1/C300c
+mkdir $1/GH4a
+mkdir $1/Still

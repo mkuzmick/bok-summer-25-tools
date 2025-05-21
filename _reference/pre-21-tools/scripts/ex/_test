@@ -1,0 +1,6 @@
+#! /usr/bin/env zsh
+
+echo "it's working!"
+
+echo $1
+echo $2

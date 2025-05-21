@@ -1,0 +1,27 @@
+#! /usr/bin/env zsh
+
+echo "running mk-start"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+# CODE_PRIVATE="/Users/mk/Documents/_mk_sync_2021/_tools/vscode/PRIVATE.code-workspace"
+# CODE_PUBLIC="/Users/mk/Documents/_mk_sync_2021/_tools/vscode/PUBLIC.code-workspace"
+
+#mk gitup
+
+open -a Slack
+open -a "Google Chrome"
+# open -a "NVUltra Beta.app" "/Users/mk/Documents/_mk_sync_2021/_text_2021/workbook"
+# open -a "FoldingText" "/Users/mk/Documents/_mk_sync_2021/_text_2021/workbook/tasks.md"
+# open -a "Firefox Developer Edition"
+# open -a "NVUltra Beta.app" "/Users/mk/Development/mk-show/content/shows/mk-show"
+
+sleep 2
+echo "going to open $CODE_PRIVATE"
+code $CODE_PRIVATE
+code $CODE_PUBLIC
+
+# mk-daily-show
+mk-notes
+
+echo "done mk-start"

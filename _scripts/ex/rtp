@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Rocking the party"
+
+# Extract a URL-safe video title
+VIDEO_TITLE=$(yt-dlp --get-title "$1" | sed 's/ /_/g')
+SAFE_TITLE=${VIDEO_TITLE//[^a-zA-Z0-9_]/}
+
+echo "We are about to rock the party by downloading $SAFE_TITLE"
+
+# Use yt-dlp to find the best QuickTime-compatible formats
+yt-dlp -f 'bestvideo[ext=mp4][vcodec^=avc1]+bestaudio[ext=m4a][acodec^=mp4a]/best[ext=mp4]' \
+    --merge-output-format mp4 \
+    -o "~/Desktop/_rtp/${SAFE_TITLE}.%(ext)s" \
+    "$1"
+
+echo "All done downloading. Ready to rock the party!"

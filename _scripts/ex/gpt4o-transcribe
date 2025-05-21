@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ─── Preflight ───────────────────────────────────────────
+for cmd in jq ffmpeg ffprobe curl; do
+  if ! command -v "$cmd" &>/dev/null; then
+    echo "Error: '$cmd' is not installed. Please install it." >&2
+    exit 1
+  fi
+done
+
+if [ -z "${OPENAI_API_KEY-}" ]; then
+  echo "Error: OPENAI_API_KEY is not set." >&2
+  exit 1
+fi
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+  echo "Usage: $0 path/to/video.mp4 [target_mb]" >&2
+  echo "  target_mb: desired MB per chunk (default: 10)" >&2
+  exit 1
+fi
+
+# ─── Setup ───────────────────────────────────────────────
+input_file="$1"
+base="${input_file%.*}"
+# add "-gpt4o" before the extension
+output_file="${base}-gpt4o.txt"
+workdir="${base}_gpt4o_chunks"
+target_mb="${2:-10}"           # default to 10 MB per chunk
+bitrate_kbps=128               # 128 kbps MP3
+bitrate_bps=$(( bitrate_kbps * 1000 ))
+max_size_bytes=$(( target_mb * 1024 * 1024 ))
+
+# Clean previous run
+rm -rf "$workdir"
+mkdir -p "$workdir"
+
+# ─── 1. Extract audio → MP3 @ fixed bitrate ─────────────
+echo "Extracting audio as ${bitrate_kbps} kbps MP3…"
+ffmpeg -hide_banner -loglevel error \
+  -i "$input_file" \
+  -vn \
+  -acodec libmp3lame -b:a "${bitrate_kbps}k" -ar 16000 -ac 1 \
+  "$workdir/audio.mp3"
+
+# ─── 2. Compute chunk_time based on target size ──────────
+chunk_time=$(( max_size_bytes * 8 / bitrate_bps ))
+[ "$chunk_time" -lt 1 ] && chunk_time=1
+echo "Splitting into ~${target_mb} MB chunks → ${chunk_time}s each"
+
+# ─── 3. Split into MP3 chunks ────────────────────────────
+ffmpeg -hide_banner -loglevel error \
+  -i "$workdir/audio.mp3" \
+  -f segment \
+  -segment_time "$chunk_time" \
+  -c copy \
+  "$workdir/chunk_%03d.mp3"
+echo "Created $(ls "$workdir"/chunk_*.mp3 | wc -l) chunks"
+
+# ─── 4. Transcribe each chunk with GPT‑4o ───────────────
+echo "Transcribing with gpt-4o-transcribe…"
+for chunk in "$workdir"/chunk_*.mp3; do
+  out_txt="${chunk%.mp3}.txt"
+  response=$(
+    curl -sS https://api.openai.com/v1/audio/transcriptions \
+      -H "Authorization: Bearer $OPENAI_API_KEY" \
+      -F file=@"$chunk" \
+      -F model="gpt-4o-transcribe"
+  )
+
+  if echo "$response" | jq -e '.error' &>/dev/null; then
+    echo "API error for $chunk:" >&2
+    echo "$response" >&2
+    exit 1
+  fi
+
+  echo "$response" | jq -r .text > "$out_txt"
+  echo "→ $out_txt"
+done
+
+# ─── 5. Combine & Finish ─────────────────────────────────
+cat "$workdir"/chunk_*.txt > "$output_file"
+echo "All transcripts combined → $output_file"
+
+# (Optional) clean up intermediates
+# rm -rf "$workdir"

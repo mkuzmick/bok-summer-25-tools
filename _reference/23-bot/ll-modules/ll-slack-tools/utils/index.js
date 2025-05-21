@@ -1,0 +1,1 @@
+module.exports.makeSlackImageUrl = require('./make-slack-image-url')

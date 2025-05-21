@@ -1,0 +1,6 @@
+#!/bin/bash
+
+aws s3 cp $1 s3://ll-summer-2019/public/
+f="$(basename -- $1)"
+echo "https://ll-summer-2019.s3.amazonaws.com/public/${f}"
+open -a "Google Chrome" "https://ll-summer-2019.s3.amazonaws.com/public/${f}"

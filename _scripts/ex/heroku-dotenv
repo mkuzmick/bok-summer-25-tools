@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Check if .env file already exists in current directory
+if [ -f .env ]; then
+  echo "Error: .env file already exists in current directory"
+  exit 1
+fi
+
+# Get the Heroku config for the app linked to the local repository
+heroku_config=$(heroku config)
+
+# Format the Heroku config as a .env file
+formatted_config=$(echo "$heroku_config" | sed -n 's/^\([^:]*\): *\(.*\)$/\1=\2/p')
+
+# Save the formatted config to a .env file
+echo "$formatted_config" > .env
+
+echo "Created .env file with the following content:"
+echo "$formatted_config"

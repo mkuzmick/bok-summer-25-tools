@@ -1,0 +1,1 @@
+./ffmpeg -ss 15:32.96 -i /mlv_dev/assets/20170307_002_OEB52_Workshop_C300b_001.mov -vframes 1 out_img_again.png 

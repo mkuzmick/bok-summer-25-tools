@@ -1,0 +1,41 @@
+#! /usr/bin/env zsh
+
+echo "mk workbook & tasks starting up"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+WORKBOOK_PATH="$TEXTFOLDER/workbooks/tasks-$THEDATE.md"
+
+WORKBOOK_TEMPLATE="# WORKBOOK
+
+## EVENTS
+
+- $THEDATE.$THETIME mk start
+- 3:30 mk wrap
+
+## TASKS.todo
+
+- .blend
+- .js
+- .md
+
+## PROJECTS
+
+### SWIFT
+
+### BLENDER
+"
+
+if [[ -f $WORKBOOK_PATH ]]
+    then
+        echo "$WORKBOOK_PATH exists"
+        open -a TaskPaper $WORKBOOK_PATH
+        open -a "nvUltra Beta" "$TEXTFOLDER/workbooks"
+        # open -a "Marked 2" $WORKBOOK_PATH
+    else
+        echo "starting $WORKBOOK_PATH"
+        echo $WORKBOOK_TEMPLATE >> $WORKBOOK_PATH
+        open -a "nvUltra Beta" "$TEXTFOLDER/workbooks"
+        open -a TaskPaper $WORKBOOK_PATH
+        # open -a "Marked 2" $WORKBOOK_PATH
+fi

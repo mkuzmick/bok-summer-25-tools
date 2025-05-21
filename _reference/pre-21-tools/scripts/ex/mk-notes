@@ -1,0 +1,63 @@
+#! /usr/bin/env zsh
+
+echo "mk notes starting up"
+
+THEDATE=$(date '+%Y%m%d')
+YESTERDAY=$(date -v-1d '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+NOTES_PATH="/Users/mk/Documents/_mk_sync_2021/_text_2021/workbook/focal-points/mk-notes-$THEDATE.md"
+YESTERDAY_PATH="/Users/mk/Documents/_mk_sync_2021/_text_2021/workbook/focal-points/mk-notes-$YESTERDAY.md"
+
+
+NOTES_TEMPLATE="# MK NOTES FOR $THEDATE:
+started at $THEDATE.$THETIME 
+
+## DASHBOARD
+
+[gcal](https://calendar.google.com/calendar/u/0/r) | [gdrive](https://drive.google.com/drive/my-drive) | [the manual](https://hackmd.io/uZF2QJhoStOuNCoRsXomSg?both) | [mk kanban](https://airtable.com/tblVAgOIiJSMZcC3B/viw5dlW6djHE0I7oA?blocks=hide) | [all LL tasks](https://airtable.com/tblVAgOIiJSMZcC3B/viwkElY7sndfywN3z?blocks=hide) | [notes on the show](https://hackmd.io/Xc_FM1pDR8Own9L1NgU4bA) | [notes on the system](https://hackmd.io/BFUdSqyBSyC5zWVJcgsruQ) | [MK WORKBOOK](https://hackmd.io/711OmmJJQJa2wYqTq6S51w?both)
+
+## TODAY
+-  
+
+## MAKE
+- etudes
+    - blender
+    - resolve
+    - 
+- projects
+    - show templates
+    - workflow scripts
+    - upcoming workshops
+- resources
+    - 
+
+## SHOW
+- 
+
+## NOTES
+-
+
+## NEXT
+-  
+
+## YESTERDAY
+
+yesterday's notes to sort or delete:
+
+$(cat "$YESTERDAY_PATH")
+
+"
+
+if [[ -f $NOTES_PATH ]]
+    then
+        echo "$NOTES_PATH exists"
+        open -a "FoldingText" $NOTES_PATH
+    else
+        echo "creating and opening $NOTES_PATH"
+        echo $NOTES_TEMPLATE >> $NOTES_PATH
+        # open -a "FoldingText" $NOTES_PATH
+        
+        # open -a "nvUltra Beta" $SHOW_PATH
+        # open -a TaskPaper $DAILY_SHOW_PATH
+        # open -a "Marked 2" $WORKBOOK_PATH
+fi

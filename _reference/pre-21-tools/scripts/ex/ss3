@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "uploading $1 to $2"

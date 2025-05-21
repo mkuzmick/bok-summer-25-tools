@@ -1,0 +1,7 @@
+#!/bin/bash
+
+open -a Terminal /Users/mk/Development/react-video-machine/client
+open -a Terminal /Users/mk/Development/react-video-machine
+open -a Terminal /Users/mk/Development/react-video-machine
+cd ~/Development/react-video-machine
+atom . && yarn dev

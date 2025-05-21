@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Check if a folder path is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <folder_path>"
+  exit 1
+fi
+
+# Get the folder path and the folder name
+FOLDER_PATH="$1"
+FOLDER_NAME=$(basename "$FOLDER_PATH")
+PARENT_PATH=$(dirname "$FOLDER_PATH")
+
+# Output file path
+OUTPUT_FILE="${PARENT_PATH}/${FOLDER_NAME}.md"
+
+# Concatenate all .md files in the folder into the output file
+cat "$FOLDER_PATH"/*.md > "$OUTPUT_FILE"
+
+# Notify the user
+echo "All .md files in $FOLDER_PATH have been concatenated into $OUTPUT_FILE"

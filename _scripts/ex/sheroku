@@ -1,0 +1,7 @@
+#!/bin/bash
+MESSAGE="Updates: $1"
+git add .
+git commit -m "$MESSAGE"
+git push origin HEAD
+echo "pushed to github with message $MESSAGE"
+git push heroku HEAD

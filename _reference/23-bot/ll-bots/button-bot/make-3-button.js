@@ -1,0 +1,1 @@
+function calculateDaysBetweenWeeks(begin, end) {}

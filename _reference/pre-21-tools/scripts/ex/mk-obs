@@ -1,0 +1,12 @@
+#! /usr/bin/env zsh
+
+echo "running mk-obs"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+
+open -a "/Applications/OBS_Versions/26.0_rc3/OBS.app"
+open -a "/Applications/NDI Virtual Input.app"
+# open -a "/Applications/NewTek NDI Video Monitor.app"
+
+echo "done mk-doc"

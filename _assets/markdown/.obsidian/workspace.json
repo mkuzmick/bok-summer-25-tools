@@ -1,0 +1,156 @@
+{
+  "main": {
+    "id": "0ab1dd5a7da6a8ea",
+    "type": "split",
+    "children": [
+      {
+        "id": "93fdee96455b1d8c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a783d1084fd2d7c3",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "5f8aadb99affb106",
+    "type": "split",
+    "children": [
+      {
+        "id": "b56093ebb142b7fd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1ad4c9ab2839c60c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "cdfafb87db10d247",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "a906215595cdd70d",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "173347c9b1e5bac3",
+    "type": "split",
+    "children": [
+      {
+        "id": "c2bc288ee7ba4258",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ba0c4e3457bffc0c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "17eb8ca80915fddf",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d48848b723f0fa67",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "5d57cc127aa93310",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "1ad4c9ab2839c60c",
+  "lastOpenFiles": [
+    "HackMD_Team_1667518531611/bok photo sharing meeting 1.md",
+    "HackMD_Team_1667518531611/ANE197, 20221005 workshop plan.md",
+    "HackMD_Team_1667518531611/annual report - last few stills needed.md",
+    "HackMD_Team_1667518531611/20221018 FRENCH40 Filmmaking workshop plan.md",
+    "HackMD_Team_1667518531611/20221014 HEB1200 Brainstorming Workshop plan.md",
+    "HackMD_Team_1667518531611/20221011 FRENCH30 Podcasting workshop plan.md",
+    "HackMD_Team_1667518531611/20221013 toolTime_ Airtable!.md",
+    "HackMD_Team_1667518531611/20221003 HAA99A Senior Thesis Workshop 1 plan.md",
+    "HackMD_Team_1667518531611/20220923 project review meeting.md",
+    "HackMD_Team_1667518531611/20220822 weekly markdown.md",
+    "HackMD_Team_1667518531611/202210__ HVC workshop plan.md",
+    "ll-studio-docs/macsetup-20230321.md"
+  ]
+}

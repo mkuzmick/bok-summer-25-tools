@@ -1,0 +1,55 @@
+#! /usr/bin/env zsh
+
+echo "mk show starting up -- good for March 2021"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+SHOW_PATH="/Users/mk/Development/mk-show/content/shows"
+DAILY_SHOW_PATH="$SHOW_PATH/mk/days/2021/mk-show-$THEDATE.md"
+# SHOW_TEMPLATE_PATH="../../../mk-show/content/documentation/mk-show-template.md"
+DAILY_SHOW_TEMPLATE="---
+title: MK Daily Show for $THEDATE
+author: Marlon Kuzmick
+mainImage: https://upload.wikimedia.org/wikipedia/commons/9/91/Blacksmith_tools_2.jpg
+date: $THEDATE_FOR_YAML
+tools: []
+---
+# MK SHOW YOUR WORK FOR $THEDATE
+
+## TASKS
+
+- $THEDATE.$THETIME mk start
+
+## MECHANICS
+
+- css of the day
+- 
+
+## TOOLS
+
+- blender
+- gatsby
+- camera
+
+## LINKS
+
+
+## NOTES
+
+"
+
+if [[ -f $DAILY_SHOW_PATH ]]
+    then
+        echo "$DAILY_SHOW_PATH exists"
+        code $DAILY_SHOW_PATH
+        open -a "FoldingText" $DAILY_SHOW_PATH
+        # open -a "nvUltra Beta" $SHOW_PATH
+        # open -a "Marked 2" $WORKBOOK_PATH
+    else
+        echo "starting $DAILY_SHOW_PATH"
+        echo $DAILY_SHOW_TEMPLATE >> $DAILY_SHOW_PATH
+        code $DAILY_SHOW_PATH
+        open -a "FoldingText" $DAILY_SHOW_PATH
+        # open -a TaskPaper $DAILY_SHOW_PATH
+        # open -a "Marked 2" $WORKBOOK_PATH
+fi

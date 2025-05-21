@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /Users/mk/Development/the-tools
+atom .

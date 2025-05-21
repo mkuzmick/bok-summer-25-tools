@@ -1,0 +1,6 @@
+#!/bin/bash
+
+say "hello zibby"
+say "would you like to have a tea party?"
+say "oops."
+say "I guess maybe you are too young for tea"

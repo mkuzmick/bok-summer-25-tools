@@ -1,0 +1,10 @@
+#! /usr/bin/env zsh
+
+echo "running mk-start"
+
+
+cd $TEXTFOLDER
+
+atom .
+
+echo "done mk-start"

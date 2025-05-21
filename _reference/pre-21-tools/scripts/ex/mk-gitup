@@ -1,0 +1,18 @@
+#! /usr/bin/env zsh
+
+echo "running mk-gitup"
+
+cd ~/Development/the-show
+git pull
+sgit
+cd ~/Development/the-tools
+git pull
+sgit
+cd ~/Development/mk-react-lab
+git pull
+sgit
+cd ~/Development/unicorn
+git pull
+sgit
+
+echo "done mk-gitup"

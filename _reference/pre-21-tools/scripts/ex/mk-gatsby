@@ -1,0 +1,24 @@
+#! /usr/bin/env zsh
+
+PROJECT_NAME=$1
+PROJECT_FOLDER="/Users/mk/Development/$PROJECT_NAME"
+
+cd "~/Development"
+
+gatsby new $PROJECT_NAME $2
+DATA_STRING="{\"name\":\"$PROJECT_NAME\",\"private\":false}"
+curl -u "mkuzmick:$GITHUB_TOKEN" https://api.github.com/user/repos -d $DATA_STRING
+
+cd $PROJECT_NAME
+git remote add origin "https://github.com/mkuzmick/$PROJECT_NAME.git"
+git branch -M main
+git push -u origin main
+open -a "Firefox Developer Edition" "http://localhost:8000"
+open -a "Firefox Developer Edition" "http://localhost:8000/___graphql"
+# gatsby develop
+
+
+cp -aR ~/Development/mk-show/content ~/Development/$PROJECT_NAME/content
+
+code $CODE_PUBLIC
+code --add $PROJECT_FOLDER

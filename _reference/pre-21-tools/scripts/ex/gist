@@ -1,0 +1,25 @@
+#! /usr/bin/env zsh
+
+echo "gist"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+GIST_TITLE=$(echo $1 | tr " " "-")
+GIST_PATH="$GISTS_FOLDER/$GIST_TITLE-$THEDATE.md"
+
+GIST_TEXT="## $1 gist
+$THEDATE.$THETIME
+$(pbpaste)
+"
+
+if [[ -f $GIST_PATH ]]
+    then
+        echo "$GIST_PATH exists"
+        open -a $MAIN_TEXT_EDITOR $GISTS_FOLDER
+        # open -a "Marked 2" $WORKBOOK_PATH
+    else
+        echo "starting $GIST_PATH"
+        echo $GIST_TEXT >> $GIST_PATH
+        open -a $MAIN_TEXT_EDITOR $GISTS_FOLDER
+        # open -a "Marked 2" $WORKBOOK_PATH
+fi

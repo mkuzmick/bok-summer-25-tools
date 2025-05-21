@@ -1,0 +1,26 @@
+#! /usr/bin/env zsh
+
+echo "running resource-maker to make $1"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+RESOURCE_PATH="$RESOURCES_FOLDER/$1.md"
+
+if [[ -f $RESOURCE_PATH ]]
+    then
+        echo "$RESOURCE_PATH exists"
+        open -a FoldingText $RESOURCE_PATH;
+        open -a "Marked 2" $RESOURCE_PATH;
+    else
+        echo "$RESOURCE_PATH doesn't exist yet"
+        echo " $1 \n(description) \n $THEDATE.$THETIME" >> $RESOURCE_PATH;
+        echo "# WORKBOOK\n\nstarted $THEDATE.$THETIME\n\n## TASKS.todo\n\n* .blend\n* .js\n* .md\n\n## NOTES\n\n### FOCAL POINTS\n\n* " >> $RESOURCE_PATH
+        open -a FoldingText $RESOURCE_PATH;
+        open -a "Marked 2" $RESOURCE_PATH;
+fi
+
+
+curl "http://resources.learninglab.xyz/simple/help/video-game-fonts-and-elements"
+
+
+echo "done mk-doc"

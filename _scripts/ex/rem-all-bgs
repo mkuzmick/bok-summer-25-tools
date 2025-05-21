@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Check if the input argument (folder) is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <path-to-folder>"
+    exit 1
+fi
+
+# Set up input and output directories
+INPUT_DIR="$1"
+OUTPUT_DIR="${INPUT_DIR}_rembg"
+
+# Create the output directory if it doesn't exist
+mkdir -p "$OUTPUT_DIR"
+
+# Loop through all images in the input directory
+for INPUT_FILE in "$INPUT_DIR"/*; do
+    # Check if the input is a file
+    if [ -f "$INPUT_FILE" ]; then
+        # Prepare the output filename by removing the extension and append '_rembg.png'
+        FILENAME=$(basename -- "$INPUT_FILE")
+        BASENAME="${FILENAME%.*}"
+        OUTPUT_FILE="$OUTPUT_DIR/${BASENAME}_rembg.png"
+
+        # Remove the background using rembg
+        rembg i "$INPUT_FILE" "$OUTPUT_FILE"
+
+        # Inform the user of the progress
+        echo "Processed: $INPUT_FILE -> $OUTPUT_FILE"
+    fi
+done
+
+echo "Background removal complete. All processed images are in the $OUTPUT_DIR directory."

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+FILEBASENAME=$(basename "$1")
+
+echo "boom! we are uploading $1 to s3 with basename $FILEBASENAME. It's going to be available at URL https://ll-show.s3.amazonaws.com/public/$2/$FILEBASENAME"
+
+aws s3 cp "$1" "s3://ll-show/public/$2/"
+
+curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Hey, LLF, we just uploaded this photo: https://ll-show.s3.amazonaws.com/public/$2/$FILEBASENAME\"}" $BOOM_SLACK_HOOK
+
+echo "![$FILEBASENAME](https://ll-show.s3.amazonaws.com/public/$2/$FILEBASENAME)" | pbcopy
+
+echo "Also--if you want the markdown needed to add this file to a .md doc, I've gone through the trouble of copying it to your clipboard for you. Just head over to StackEdit or FoldingText or Atom, then hit command-V and you should be good to go."

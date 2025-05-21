@@ -1,0 +1,56 @@
+#! /usr/bin/env zsh
+
+echo "mk tasks starting up"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+TASKS_PATH="/Users/mk/Documents/_mk_sync_2021/_text_2021/workbook/focal-points/mk-tasks-$THEDATE.md"
+
+TASKS_TEMPLATE="# MK TASKS FOR $THEDATE:
+started at $THEDATE.$THETIME 
+
+## FOCAL POINTS
+- 
+
+### MONEY
+-
+
+## ETUDES
+- 
+
+### TOOL OF THE DAY
+- 
+
+### IMAGE
+- 
+
+### BLENDER
+- 
+
+### CAMERA
+- 
+
+### ESSAY
+- 
+
+## NOTES
+
+## NEXT
+
+
+
+"
+
+if [[ -f $TASKS_PATH ]]
+    then
+        echo "$TASKS_PATH exists"
+        open -a "FoldingText" $TASKS_PATH
+    else
+        echo "creating and opening $TASKS_PATH"
+        echo $TASKS_TEMPLATE >> $TASKS_PATH
+        open -a "FoldingText" $TASKS_PATH
+        
+        # open -a "nvUltra Beta" $SHOW_PATH
+        # open -a TaskPaper $DAILY_SHOW_PATH
+        # open -a "Marked 2" $WORKBOOK_PATH
+fi

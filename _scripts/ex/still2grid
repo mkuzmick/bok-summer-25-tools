@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+  echo "Usage: $0 image_file percentage"
+  exit 1
+fi
+
+# Get input file name and extension
+filename=$(basename -- "$1")
+extension="${filename##*.}"
+filename="${filename%.*}"
+
+# Generate output file names
+output_grid="${filename}-grid.jpg"
+output_crop="${filename}-crop.jpg"
+
+# Create image grid
+montage "$1" "$1" "$1" "$1" "$1" "$1" "$1" "$1" "$1" -tile 3x3 -geometry +0+0 "$output_grid"
+
+# Crop center square from image
+input_file="$output_grid"
+percentage="$2"
+
+width=$(identify -format '%w' "$input_file")
+height=$(identify -format '%h' "$input_file")
+diagonal=$(echo "scale=2;sqrt($width^2 + $height^2)" | bc)
+
+crop_size=$(echo "scale=0; $diagonal * $percentage / 100" | bc)
+crop_size_half=$(echo "scale=0; $crop_size / 2" | bc)
+
+x=$(echo "scale=0; ($width / 2) - $crop_size_half" | bc)
+y=$(echo "scale=0; ($height / 2) - $crop_size_half" | bc)
+
+convert "$input_file" -crop "${crop_size}x${crop_size}+${x}+${y}" "$output_crop"

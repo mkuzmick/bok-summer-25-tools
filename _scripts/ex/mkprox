@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Exit on error
+set -e
+
+# Check if an argument was provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <path_to_original_file>"
+    exit 1
+fi
+
+# Original file (full path)
+ORIG_FILE="$1"
+
+# Check if the file exists
+if [ ! -f "$ORIG_FILE" ]; then
+    echo "File does not exist: $ORIG_FILE"
+    exit 1
+fi
+
+# Get containing directory and filename
+CONTAINING_DIR=$(dirname "$ORIG_FILE")
+FILE_NAME=$(basename "$ORIG_FILE")
+
+# Create proxy folder if it doesn't exist already
+PROXY_DIR="${CONTAINING_DIR}_proxy"
+mkdir -p "$PROXY_DIR"
+
+# Proxy file full path
+PROXY_FILE="$PROXY_DIR/$FILE_NAME"
+
+# Run ffmpeg to create the proxy
+ffmpeg -i "$ORIG_FILE" -c:v libx264 -pix_fmt yuv420p -vf scale=-1:1080 -preset slow -crf 28 -ac 2 -c:a aac -b:a 128k "$PROXY_FILE"
+
+echo "Proxy created at: $PROXY_FILE"

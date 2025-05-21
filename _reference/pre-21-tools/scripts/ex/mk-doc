@@ -1,0 +1,21 @@
+#! /usr/bin/env zsh
+
+echo "running mk-doc to make $1"
+
+THEDATE=$(date '+%Y%m%d')
+THETIME=$(date '+%H%M%S')
+
+
+if [[ -f "$RESOURCES_FOLDER/$1.md" ]]
+    then
+        echo "$RESOURCES_FOLDER/$1.md exists"
+        open -a FoldingText $RESOURCES_FOLDER/$1.md;
+        open -a "Marked 2" $RESOURCES_FOLDER/$1.md;
+    else
+        echo "$RESOURCES_FOLDER/$1.md doesn't exist yet"
+        echo " $1 \n(description) \n $THEDATE.$THETIME" >> "$RESOURCES_FOLDER/$1.md";
+        open -a FoldingText $RESOURCES_FOLDER/$1.md;
+        open -a "Marked 2" $RESOURCES_FOLDER/$1.md;
+fi
+
+echo "done mk-doc"

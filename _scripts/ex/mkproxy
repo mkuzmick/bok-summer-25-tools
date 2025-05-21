@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  echo "Please provide a video file as an argument."
+  exit 1
+fi
+
+# Extracting the file name and extension
+file_path="$1"
+file_name=$(basename "$file_path")
+file_extension="${file_name##*.}"
+file_name="${file_name%.*}"
+
+# Creating the proxy directory next to the original file
+parent_directory=$(dirname "$file_path")
+proxy_directory="$parent_directory/${file_name}_proxy"
+mkdir -p "$proxy_directory"
+
+# Constructing the proxy file path
+proxy_path="$proxy_directory/$file_name.$file_extension"
+
+# Transcoding the video file
+ffmpeg -i "$file_path" \
+  -c:v libx264 -pix_fmt yuv420p -vf "scale=-1:1080" \
+  -preset slow -crf 28 -ac 2 -c:a aac -b:a 128k \
+  "$proxy_path"
+
+echo "Transcoding completed. Proxy file: $proxy_path"

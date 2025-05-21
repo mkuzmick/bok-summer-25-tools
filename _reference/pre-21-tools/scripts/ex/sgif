@@ -1,0 +1,12 @@
+#!/bin/bash
+
+VIDEOFILE=$1
+PALETTE_PATH="$(dirname $1)/$(basename $1 | cut -d. -f1)-palette.png"
+GIF_PATH="$(dirname $1)/$(basename $1 | cut -d. -f1).gif"
+
+ffmpeg -i $VIDEOFILE -vf palettegen $PALETTE_PATH
+echo "made palette here: $PALETTE_PATH"
+ffmpeg -i $VIDEOFILE -i $PALETTE_PATH $GIF_PATH
+echo "making gif here: $GIF_PATH"
+
+open -a "Google Chrome" $GIF_PATH
