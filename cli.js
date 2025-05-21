@@ -8,6 +8,7 @@ const trailerBot = require("./src/bots/trailer-bot");
 const capture = require("./src/tools/capture");
 const path = require("path");
 const { at2md } = require('./airtable/airtable-to-markdown');
+const resolve2stills = require('./src/tools/resolve-2-stills');
 
 require("dotenv").config({ path: __dirname + `/.env.cli` });
 
@@ -30,8 +31,7 @@ if (yargs.capture && yargs.capture !== true) {
   shootFolder = process.cwd();
 }
 
-console.log("Launching...");
-console.log("ShootFolder:", shootFolder);
+
 
 // Options: rename, makefolders, proxy, proxyf2
 if (yargs.watch_hijack || yargs.hijack) {
@@ -44,7 +44,21 @@ if (yargs.watch_hijack || yargs.hijack) {
     console.error("Error: No shoot folder specified.");
     process.exit(1);
   }
+  console.log("Launching...");
+  console.log("ShootFolder:", shootFolder);
   capture(shootFolder);
+} else if (yargs.resolve2stills || yargs['resolve-to-stills']) {
+  // Accept folder as argument
+  const folder = (typeof yargs.resolve2stills === 'string' && yargs.resolve2stills !== 'true')
+    ? yargs.resolve2stills
+    : (typeof yargs['resolve-to-stills'] === 'string' && yargs['resolve-to-stills'] !== 'true')
+      ? yargs['resolve-to-stills']
+      : process.cwd();
+  if (!folder) {
+    console.error('Error: No folder specified for --resolve2stills');
+    process.exit(1);
+  }
+  resolve2stills(folder);
 } else if (yargs.trailer) {
   // Run the script with a video file argument
   const videoFile = yargs.trailer;
