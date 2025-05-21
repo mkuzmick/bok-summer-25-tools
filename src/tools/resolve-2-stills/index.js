@@ -70,11 +70,11 @@ async function extractFirstFrame(folder) {
     }
     const yyyymmdd = match[1];
     let baseName = `ll_still_${yyyymmdd}_${tc_fmt}`;
-    let outputJpg = path.join(folder, `${baseName}.jpg`);
-    let altCounter = 1;
+    let version = 1;
+    let outputJpg = path.join(folder, `${baseName}_v${version}.jpg`);
     while (fs.existsSync(outputJpg)) {
-      outputJpg = path.join(folder, `${baseName}-alt-${altCounter}.jpg`);
-      altCounter++;
+      version++;
+      outputJpg = path.join(folder, `${baseName}_v${version}.jpg`);
     }
     // Log the intended new file name before extraction
     console.log(`Creating still: ${outputJpg}`);
