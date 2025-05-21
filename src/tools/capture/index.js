@@ -32,7 +32,7 @@ async function getFfprobeData(videoFilePath) {
 async function findCaptureSession(shootId, baseId, table) {
   console.log(`Searching for CaptureSession with ID: ${shootId}`);
 
-  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(baseId);
+  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_TOKEN }).base(baseId);
 
   try {
     const records = await base(table).select({
@@ -57,7 +57,7 @@ async function findCaptureSession(shootId, baseId, table) {
 async function sendToAirtable(record, baseId, table) {
   console.log("Sending this to Airtable: ", JSON.stringify(record, null, 4));
 
-  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(baseId);
+  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_TOKEN }).base(baseId);
 
   try {
     const airtableRecord = await base(table).create(record);
@@ -73,7 +73,7 @@ module.exports = async function processShootFolder(parentFolder) {
   const shootId = path.basename(parentFolder); // Extract shootId from folder name
   console.log(`Processing shoot folder: ${parentFolder} with shootId: ${shootId}`);
 
-  const baseId = process.env.AIRTABLE_INGEST_BASE;
+  const baseId = process.env.AIRTABLE_CAPTURE_BASE_ID;
   const captureSessionTable = 'CaptureSessions';
   const captureFilesTable = 'CaptureFiles';
 

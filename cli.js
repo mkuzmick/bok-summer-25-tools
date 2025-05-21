@@ -11,8 +11,6 @@ const { at2md } = require('./airtable/airtable-to-markdown');
 
 require("dotenv").config({ path: __dirname + `/.env.cli` });
 
-console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY);
-
 // Store any arguments passed in using yargs
 const yargs = require("yargs").argv;
 
